@@ -4,6 +4,7 @@
 [![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![Redis](https://img.shields.io/badge/Redis-880808?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/)
 
 **Telegram bot for creating slowed/speed up+reverb remixes.**
 
