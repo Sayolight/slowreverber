@@ -16,6 +16,9 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_PASS: ${REDIS_PASS}
+      ADVERTISEMENT_STATUS: ${ADVERTISEMENT_STATUS}
+      ADMANAGER_URL: ${ADMANAGER_URL}
+      log: info
     volumes:
       - .:/app
     depends_on:
