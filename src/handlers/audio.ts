@@ -7,15 +7,20 @@ import Cache from "../database/models/cache";
 import { promisify } from "util";
 import { exec } from "child_process";
 import { logger } from "../helpers/logger";
+import { sendAdvertisement } from "../helpers/advertisement";
 
 export const composer = new Composer<MyContext>();
 const audio = composer.chatType("private");
 
 const execAsync = promisify(exec);
 audio.on([":audio", "edited_message"], async (ctx: MyContext) => {
+  if (process.env.ADVERTISEMENT_STATUS === "true") {
+    sendAdvertisement(ctx.chat!.id);
+  }
+
   const botUsername = (await bot.api.getMe()).username;
   const usersInQueue = (await audioQueue.getWaiting()).map(
-    (item) => item.data.user_id,
+    (item) => item.data.user_id
   );
 
   if (ctx.message?.audio?.file_size! > 20971520) {
@@ -43,7 +48,7 @@ audio.on([":audio", "edited_message"], async (ctx: MyContext) => {
   await bot.api.editMessageText(
     ctx.chat!.id,
     statusMessage.message_id,
-    ctx.t("processing"),
+    ctx.t("processing")
   );
 
   job
@@ -83,7 +88,7 @@ audio.on([":audio", "edited_message"], async (ctx: MyContext) => {
       });
 
       await execAsync("rm -rf " + result?.audioPath).catch((e) =>
-        logger.error(e),
+        logger.error(e)
       );
     })
     .catch((err) => {
@@ -91,14 +96,14 @@ audio.on([":audio", "edited_message"], async (ctx: MyContext) => {
       execAsync("rm -rf ./public/tmp/*").catch((e) => logger.error(e));
       if (err.name === "BullJobTimeoutError") {
         console.log(
-          "Задача была отменена из-за превышения времени выполнения.",
+          "Задача была отменена из-за превышения времени выполнения."
         );
       } else {
         bot.api
           .editMessageText(
             ctx.chat!.id,
             statusMessage.message_id,
-            ctx.t("error.reverb"),
+            ctx.t("error.reverb")
           )
           .catch((e) => logger.error(e));
       }
