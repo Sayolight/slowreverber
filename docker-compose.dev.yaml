@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    environment:
+      BOT_TOKEN: ${BOT_TOKEN}
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASS: ${REDIS_PASS}
+      log: debug
+    volumes:
+      - .:/app
+    command: npm run dev
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: mysql:5.7
+    container_name: db
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    expose:
+      - 3306
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASS}
+    volumes:
+      - redis_data:/data
+    expose:
+      - 6379
+    command: ["redis-server", "--requirepass", "${REDIS_PASS}"]
+
+volumes:
+  db_data:
+  redis_data:
