@@ -3,7 +3,7 @@ bot=
     .about=
         🎵 Create your own slowed+reverb and speed up+reverb remixes!
 
-        💬 Feedback: @SayoSupportBot
+        💬 Feedback: @artsayo
     .description=
         🎵 Want to change the speed and atmosphere of your favorite songs? Then you'll love this bot!
 
@@ -21,18 +21,16 @@ bot=
 help=
     .text=
         👋 Hi, <b>{ $name }</b>! I'm a bot for creating slowed+reverb remixes. To get a remix, please send an audio file.
-        
+
         ⚙️ You can adjust the speed and reverb settings using the /settings command.
 
-        📞 If you have any questions or issues, please <a href="https://t.me/sayosupportbot">contact the developer</a>.
-
-        🎶 If you'd like to support the developer, we would appreciate any donation - <i><a href="https://t.me/whoisartsayo/11">here</a></i>.
+        📞 If you have any questions or issues, please <a href="https://t.me/artsayo">contact the developer</a>.
 
         📣 <a href="https://t.me/artsayo">Developer's channel</a>
 settings=
     .text=
         ⚙️ <b>This is the bot settings menu. To continue, choose the action you want to perform.</b>
-        
+
         💨 In the "Change speed" section, you can select the speed that suits you best. When you select the desired option, a checkmark ✅ will appear on one of the buttons indicating the chosen speed.
 
         🌴 If you want to turn the reverb effect on or off, use the "Reverb" button.
