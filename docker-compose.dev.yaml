@@ -5,15 +5,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: app
+    container_name: slowreverber-app
     restart: always
     environment:
+      NODE_ENV: development
       BOT_TOKEN: ${BOT_TOKEN}
-      DB_HOST: db
-      DB_PORT: 3306
-      DB_NAME: ${DB_NAME}
-      DB_USERNAME: ${DB_USERNAME}
-      DB_PASSWORD: ${DB_PASSWORD}
+      DATABASE_URL: "mysql://${DB_USERNAME}:${DB_PASSWORD}@db:3306/${DB_NAME}?charset=utf8mb4&parseTime=True&loc=Local"
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_PASS: ${REDIS_PASS}
@@ -22,14 +19,13 @@ services:
       log: debug
     volumes:
       - .:/app
-    command: npm run dev
     depends_on:
       - db
       - redis
 
   db:
     image: mysql:5.7
-    container_name: db
+    container_name: slowreverber-db
     environment:
       MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USERNAME}
@@ -39,10 +35,11 @@ services:
       - db_data:/var/lib/mysql
     expose:
       - 3306
+    command: [ 'mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci' ]
 
   redis:
     image: redis:alpine
-    container_name: redis
+    container_name: slowreverber-redis
     environment:
       REDIS_PASSWORD: ${REDIS_PASS}
     volumes:

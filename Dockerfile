@@ -2,7 +2,7 @@ FROM node:lts-alpine
 
 WORKDIR /app
 
-COPY . /app/
+COPY . .
 
 ENV BOT_TOKEN=${BOT_TOKEN} \
     log=${log} \
@@ -21,6 +21,5 @@ RUN npm install
 RUN apk update
 RUN apk add ffmpeg sox
 
-VOLUME app
-
-CMD npm run bot
+RUN chmod +x ./entrypoint.sh
+ENTRYPOINT ["sh", "./entrypoint.sh"]

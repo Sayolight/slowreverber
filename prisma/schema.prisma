@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+  output        = "./generated"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  telegram_id   BigInt    @id
+  settings      Settings?
+  caches        Cache[]
+  username      String?
+  first_name    String?
+  last_name     String?
+  language_code String?
+  referal       String?
+}
+
+model Settings {
+  telegram_id BigInt  @id
+  user        User    @relation(fields: [telegram_id], references: [telegram_id])
+  speed       Float   @default(0.7)
+  reverb      Boolean @default(true)
+}
+
+model Cache {
+  id               Int     @id @default(autoincrement())
+  telegram_id      BigInt
+  user             User    @relation(fields: [telegram_id], references: [telegram_id])
+  speed            Float
+  reverb           Boolean
+  origin_unique_id String
+  origin_id        String
+  remix_id         String
+}

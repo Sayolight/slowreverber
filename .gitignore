@@ -5,3 +5,5 @@ dump.rdb
 .env
 migratedb.js
 slowreverber.sqlite
+/prisma/generated
+.idea
