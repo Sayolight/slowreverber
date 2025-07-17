@@ -6,6 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: app
+    restart: always
     environment:
       BOT_TOKEN: ${BOT_TOKEN}
       DB_HOST: db
